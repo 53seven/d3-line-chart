@@ -1,8 +1,9 @@
 // bar_chart.js
 import * as d3_selection from 'd3-selection';
-import {max as d3_max} from 'd3-array';
+import {max as d3_max, extent as d3_extent} from 'd3-array';
 import * as d3_scale from 'd3-scale';
 import * as d3_axis from 'd3-axis';
+import * as d3_shape from 'd3-shape';
 
 export default function constructor() {
   // properties for the chart
@@ -14,7 +15,8 @@ export default function constructor() {
       width = 700,
       height = 400,
       // default to zero margins
-      margin = {top: 0, right: 0, bottom: 0, left: 0};
+      margin = {top: 0, right: 0, bottom: 0, left: 0},
+      x_axis_title = '', y_axis_title = '';
 
   function line_chart(selection) {
     selection.each(function(d, i) {
@@ -28,9 +30,8 @@ export default function constructor() {
                   .append('g')
                   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-      var x = d3_scale.scaleBand()
-          .rangeRound([0, chartWidth])
-          .paddingInner(0.1);
+      var x = d3_scale.scaleTime()
+          .range([0, chartWidth]);
 
       var y = d3_scale.scaleLinear()
           .range([chartHeight, 0]);
@@ -39,11 +40,15 @@ export default function constructor() {
           .scale(x);
 
       var yAxis = d3_axis.axisLeft()
-          .scale(y)
-          .ticks(10, '%');
+          .scale(y);
 
-      x.domain(data.map(xValue));
+      x.domain(d3_extent(data, xValue));
       y.domain([0, d3_max(data, yValue)]);
+
+
+      var line = d3_shape.line()
+        .x(function(d) { return x(xValue(d)); })
+        .y(function(d) { return y(yValue(d)); });
 
       chart.append('g')
           .attr('class', 'x axis')
@@ -58,16 +63,12 @@ export default function constructor() {
           .attr('y', 6)
           .attr('dy', '.71em')
           .style('text-anchor', 'end')
-          .text('Frequency');
+          .text(y_axis_title);
 
-      chart.selectAll('.bar')
-          .data(data)
-        .enter().append('rect')
-          .attr('class', 'bar')
-          .attr('x', function(d) { return x(xValue(d)); })
-          .attr('y', function(d) { return y(yValue(d)); })
-          .attr('height', function(d) { return chartHeight - y(yValue(d)); })
-          .attr('width', x.bandwidth());
+      chart.append('path')
+        .datum(data)
+        .attr('class', 'line')
+        .attr('d', line);
     });
   }
 
@@ -114,6 +115,22 @@ export default function constructor() {
   line_chart.margin = function(val) {
     if (!arguments.length) {
       return margin;
+    }
+    margin = val;
+    return line_chart;
+  };
+
+  line_chart.xAxisTitle = function(val) {
+    if (!arguments.length) {
+      return x_axis_title;
+    }
+    margin = val;
+    return line_chart;
+  };
+
+  line_chart.yAxisTitle = function(val) {
+    if (!arguments.length) {
+      return y_axis_title;
     }
     margin = val;
     return line_chart;

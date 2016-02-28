@@ -39,6 +39,7 @@
   "dependencies": {
     "d3-array": "^0.7.1",
     "d3-axis": "^0.2.3",
-    "d3-scale": "^0.6.1"
+    "d3-scale": "^0.6.1",
+    "d3-shape": "^0.5.1"
   }
 }
