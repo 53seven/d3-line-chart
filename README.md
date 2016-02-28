@@ -1,15 +1,15 @@
-d3-example-bar-chart-plugin
+d3-line-chart-plugin
 ===
 
-[![build status](https://travis-ci.org/53seven/d3-example-bar-chart-plugin.svg)](https://travis-ci.org/53seven/d3-example-bar-chart-plugin)
+[![build status](https://travis-ci.org/53seven/d3-line-chart-plugin.svg)](https://travis-ci.org/53seven/d3-line-chart-plugin)
 
-A reimplementation of [Let's Make a Bar Chart III](https://bost.ocks.org/mike/bar/3/) with the plugin infrastructure of D3v4.
+A reimplementation of Mike's [Line Chart](https://bl.ocks.org/mbostock/3883245) with the plugin infrastructure of D3v4.
 
 The goal for this package is to serve as a reference for creating reusable and versioned D3 charts that that can be distributed through npm.
 
 ## Installing
 
-If you use NPM, `npm install d3-example-bar-chart-plugin`. Otherwise, download the [latest release](https://github.com/53seven/d3-example-bar-chart-plugin/releases/latest).
+If you use NPM, `npm install d3-line-chart-plugin`. Otherwise, download the [latest release](https://github.com/53seven/d3-line-chart-plugin/releases/latest).
 
 
 ## Examples
@@ -29,16 +29,16 @@ var svg = d3_select.select('svg')
                     .attr('height', 400);
 
 
-var data = [{letter: 'A', frequency: 0.08}, ....];
+var data = [{date: new Date('2010-01-01'), frequency: 0.08}, ....];
 
 
-var barChart = d3_example_bar_chart_plugin.chart()
+var barChart = d3_line_chart.chart()
                   .width(700)
                   .height(400)
                   .margin({top: 20, right: 30, bottom: 30, left: 40})
                   .data(data)
                   .xValue(function(d) {
-                    return d.letter;
+                    return d.date;
                   })
                   .yValue(function(d) {
                     return d.frequency;
@@ -50,7 +50,7 @@ svg.call(barChart);
 
 ## API Reference
 
-#### d3_example_bar_chart_plugin.chart()
+#### d3_line_chart.chart()
 
 Creates and returns a new `chart`.
 
@@ -60,7 +60,7 @@ Sets or returns the data to be rendered to the chart.
 
 ##### chart.xValue([xValue])
 
-Sets or returns the x value accessor for the data.
+Sets or returns the x value accessor for the data. Currently only `Date` objects will cause the chart to render correctly.
 
 ##### chart.yValue([yValue])
 
