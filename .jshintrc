@@ -1,0 +1,18 @@
+{
+  "loopfunc": true,
+  "curly": true,
+  "maxlen": 120,
+  "indent": 2,
+  "nonbsp": true,
+  "quotmark": "single",
+  "undef": true,
+  "white": true,
+  "node": true,
+  "sub": true,
+  "freeze": true,
+  "latedef": "nofunc",
+  "noempty": true,
+  "unused": "vars",
+  "maxdepth": 4,
+  "maxerr": 100
+}

@@ -1,0 +1,44 @@
+{
+  "name": "d3-line-chart",
+  "version": "0.0.0",
+  "description": "d3 line chart",
+  "keywords": [
+    "d3",
+    "plugin",
+    "line chart"
+  ],
+  "license": "MIT",
+  "main": "build/d3-line-chart.js",
+  "jsnext:main": "index",
+  "homepage": "https://github.com/53seven/d3-line-chart",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/53seven/d3-line-chart.git"
+  },
+  "scripts": {
+    "build": "mkdir -p build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../index\\\"; export {version};\");' > build/bundle.js && rollup -c rollup.config.js -f umd -u d3-line-chart -n d3_line_chart -o build/d3-line-chart.js -- build/bundle.js",
+    "minify": "uglifyjs build/d3-line-chart.js -c -m -o build/d3-line-chart.min.js",
+    "archive": "rm -f build/d3-line-chart.zip && zip -j build/d3-line-chart.zip -- LICENSE README.md build/d3-line-chart.js build/d3-line-chart.min.js",
+    "pretest": "npm run build",
+    "test": "faucet `find test -name '*-test.js'`",
+    "version": "npm run build && npm run minify && git add build/d3-line-chart.js build/d3-line-chart.min.js",
+    "prepublish": "npm run test && npm run minify && npm run archive"
+  },
+  "devDependencies": {
+    "d3-svg": "^0.2.0",
+    "faucet": "0.0",
+    "jsdom": "^7.2.2",
+    "lodash": "^3.10.1",
+    "rollup": "0.20.5",
+    "rollup-plugin-commonjs": "^1.4.0",
+    "rollup-plugin-node-resolve": "^1.4.0",
+    "tape": "4",
+    "tape-catch": "^1.0.4",
+    "uglify-js": "2"
+  },
+  "dependencies": {
+    "d3-array": "^0.7.1",
+    "d3-axis": "^0.2.3",
+    "d3-scale": "^0.6.1"
+  }
+}
