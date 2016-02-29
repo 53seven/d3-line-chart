@@ -19,6 +19,15 @@ export default function constructor() {
       margin = {top: 0, right: 0, bottom: 0, left: 0},
       x_axis_title = '', y_axis_title = '';
 
+  // d3 components that we want to make available on getters
+  var x = d3_scale.scaleTime();
+  var y = d3_scale.scaleLinear();
+
+  var xAxis = d3_axis.axisBottom().scale(x);
+  var yAxis = d3_axis.axisLeft().scale(y);
+
+  var chartG;
+
   function line_chart(selection) {
     selection.each(function(d, i) {
 
@@ -27,21 +36,9 @@ export default function constructor() {
           chartWidth = width - margin.left - margin.right;
 
       // select the element that we want to append the chart to
-      var chart = d3_selection.select(this)
+      chartG = d3_selection.select(this)
                   .append('g')
                   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-      var x = d3_scale.scaleTime()
-          .range([0, chartWidth]);
-
-      var y = d3_scale.scaleLinear()
-          .range([chartHeight, 0]);
-
-      var xAxis = d3_axis.axisBottom()
-          .scale(x);
-
-      var yAxis = d3_axis.axisLeft()
-          .scale(y);
 
       if (!x_domain) {
         x_domain = d3_extent(data, xValue);
@@ -53,17 +50,20 @@ export default function constructor() {
       x.domain(x_domain);
       y.domain(y_domain);
 
+      x.range([0, chartWidth]);
+      y.range([chartHeight, 0]);
+
 
       var line = d3_shape.line()
-        .x(function(d) { return x(xValue(d)); })
-        .y(function(d) { return y(yValue(d)); });
+          .x(function(d) { return x(xValue(d)); })
+          .y(function(d) { return y(yValue(d)); });
 
-      chart.append('g')
+      chartG.append('g')
           .attr('class', 'x axis')
           .attr('transform', 'translate(0,' + chartHeight + ')')
           .call(xAxis);
 
-      chart.append('g')
+      chartG.append('g')
           .attr('class', 'y axis')
           .call(yAxis)
         .append('text')
@@ -73,10 +73,10 @@ export default function constructor() {
           .style('text-anchor', 'end')
           .text(y_axis_title);
 
-      chart.append('path')
-        .datum(data)
-        .attr('class', 'line')
-        .attr('d', line);
+      chartG.append('path')
+          .datum(data)
+          .attr('class', 'line')
+          .attr('d', line);
     });
   }
 
@@ -158,6 +158,18 @@ export default function constructor() {
     }
     y_domain = val;
     return line_chart;
+  };
+
+  line_chart.g = function() {
+    return chartG;
+  };
+
+  line_chart.xAxis = function() {
+    return xAxis;
+  };
+
+  line_chart.yAxis = function() {
+    return yAxis;
   };
 
   return line_chart;

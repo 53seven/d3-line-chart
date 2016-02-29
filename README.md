@@ -89,6 +89,14 @@ x_domain = extent(data, xValue);
 y_domain = [0, max(data, yValue)];
 ```
 
+##### chart.g()
+
+Returns the `g` element that contains all elements in the chart. This element is scaled and translated based on the `margin` property.
+
+##### chart.xAxis(), chart.yAxis()
+
+Returns the x or y axis objects that the chart will use for rendering. These methods are useful for altering the tick formatting and properties for the chart before it gets rendered.
+
 ## License
 
 MIT
