@@ -922,7 +922,7 @@
     return [a, c];
   }
 
-  function sequence(start, stop, step) {
+  function range(start, stop, step) {
     start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
 
     var i = -1,
@@ -941,7 +941,7 @@
   var e2 = Math.sqrt(2);
   function ticks(start, stop, count) {
     var step = tickStep(start, stop, count);
-    return sequence(
+    return range(
       Math.ceil(start / step) * step,
       Math.floor(stop / step) * step + step / 2, // inclusive
       step
@@ -1325,10 +1325,10 @@
   var Xn = 0.950470;
   var Yn = 1;
   var Zn = 1.088830;
-  var t0$1 = 4 / 29;
-  var t1$1 = 6 / 29;
-  var t2 = 3 * t1$1 * t1$1;
-  var t3 = t1$1 * t1$1 * t1$1;
+  var t0 = 4 / 29;
+  var t1 = 6 / 29;
+  var t2 = 3 * t1 * t1;
+  var t3 = t1 * t1 * t1;
   function labConvert(o) {
     if (o instanceof Lab) return new Lab(o.l, o.a, o.b, o.opacity);
     if (o instanceof Hcl) {
@@ -1380,11 +1380,11 @@
   }));
 
   function xyz2lab(t) {
-    return t > t3 ? Math.pow(t, 1 / 3) : t / t2 + t0$1;
+    return t > t3 ? Math.pow(t, 1 / 3) : t / t2 + t0;
   }
 
   function lab2xyz(t) {
-    return t > t1$1 ? t * t * t : t2 * (t - t0$1);
+    return t > t1 ? t * t * t : t2 * (t - t0);
   }
 
   function xyz2rgb(x) {
@@ -1830,13 +1830,13 @@
     return interpolateCubehelixLong;
   })(1);
 
-  function constant$1(x) {
+  function constant(x) {
     return function() {
       return x;
     };
   }
 
-  function number$2(x) {
+  function number$1(x) {
     return +x;
   }
 
@@ -1845,7 +1845,7 @@
   function deinterpolateLinear(a, b) {
     return (b -= (a = +a))
         ? function(x) { return (x - a) / b; }
-        : constant$1(b);
+        : constant(b);
   }
 
   function deinterpolateClamp(deinterpolate) {
@@ -1926,7 +1926,7 @@
     };
 
     scale.domain = function(_) {
-      return arguments.length ? (domain = map.call(_, number$2), rescale()) : domain.slice();
+      return arguments.length ? (domain = map.call(_, number$1), rescale()) : domain.slice();
     };
 
     scale.range = function(_) {
@@ -2500,8 +2500,8 @@
     return domain;
   }
 
-  var t0 = new Date;
-  var t1 = new Date;
+  var t0$1 = new Date;
+  var t1$1 = new Date;
   function newInterval(floori, offseti, count, field) {
 
     function interval(date) {
@@ -2547,9 +2547,9 @@
 
     if (count) {
       interval.count = function(start, end) {
-        t0.setTime(+start), t1.setTime(+end);
-        floori(t0), floori(t1);
-        return Math.floor(count(t0, t1));
+        t0$1.setTime(+start), t1$1.setTime(+end);
+        floori(t0$1), floori(t1$1);
+        return Math.floor(count(t0$1, t1$1));
       };
 
       interval.every = function(step) {
@@ -3681,7 +3681,7 @@
 
   var slice$1 = Array.prototype.slice;
 
-  function identity$2(x) {
+  function identity$1(x) {
     return x;
   }
 
@@ -3730,7 +3730,7 @@
 
     function axis(g) {
       var values = tickValues == null ? (scale.ticks ? scale.ticks.apply(scale, tickArguments) : scale.domain()) : tickValues,
-          format = tickFormat == null ? (scale.tickFormat ? scale.tickFormat.apply(scale, tickArguments) : identity$2) : tickFormat,
+          format = tickFormat == null ? (scale.tickFormat ? scale.tickFormat.apply(scale, tickArguments) : identity$1) : tickFormat,
           spacing = Math.max(tickSizeInner, 0) + tickPadding,
           position = scale.bandwidth ? center(scale) : scale,
           range = scale.range();
@@ -3965,7 +3965,7 @@
     }
   };
 
-  function constant$2(x) {
+  function constant$1(x) {
     return function constant() {
       return x;
     };
@@ -4029,7 +4029,7 @@
   function line() {
     var x$$ = x,
         y$$ = y,
-        defined = constant$2(true),
+        defined = constant$1(true),
         context = null,
         curve = curveLinear,
         output = null;
@@ -4055,15 +4055,15 @@
     }
 
     line.x = function(_) {
-      return arguments.length ? (x$$ = typeof _ === "function" ? _ : constant$2(+_), line) : x$$;
+      return arguments.length ? (x$$ = typeof _ === "function" ? _ : constant$1(+_), line) : x$$;
     };
 
     line.y = function(_) {
-      return arguments.length ? (y$$ = typeof _ === "function" ? _ : constant$2(+_), line) : y$$;
+      return arguments.length ? (y$$ = typeof _ === "function" ? _ : constant$1(+_), line) : y$$;
     };
 
     line.defined = function(_) {
-      return arguments.length ? (defined = typeof _ === "function" ? _ : constant$2(!!_), line) : defined;
+      return arguments.length ? (defined = typeof _ === "function" ? _ : constant$1(!!_), line) : defined;
     };
 
     line.curve = function(_) {
@@ -4116,7 +4116,7 @@
   // According to https://en.wikipedia.org/wiki/Cubic_Hermite_spline#Representations
   // "you can express cubic Hermite interpolation in terms of cubic Bézier curves
   // with respect to the four values p0, p0 + m0 / 3, p1 - m1 / 3, p1".
-  function point$4(that, t0, t1) {
+  function point$3(that, t0, t1) {
     var x0 = that._x0,
         y0 = that._y0,
         x1 = that._x1,
@@ -4145,7 +4145,7 @@
     lineEnd: function() {
       switch (this._point) {
         case 2: this._context.lineTo(this._x1, this._y1); break;
-        case 3: point$4(this, this._t0, slope2(this, this._t0)); break;
+        case 3: point$3(this, this._t0, slope2(this, this._t0)); break;
       }
       if (this._line || (this._line !== 0 && this._point === 1)) this._context.closePath();
       this._line = 1 - this._line;
@@ -4158,8 +4158,8 @@
       switch (this._point) {
         case 0: this._point = 1; this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y); break;
         case 1: this._point = 2; break;
-        case 2: this._point = 3; point$4(this, slope2(this, t1 = slope3(this, x, y)), t1); break;
-        default: point$4(this, this._t0, t1 = slope3(this, x, y)); break;
+        case 2: this._point = 3; point$3(this, slope2(this, t1 = slope3(this, x, y)), t1); break;
+        default: point$3(this, this._t0, t1 = slope3(this, x, y)); break;
       }
 
       this._x0 = this._x1, this._x1 = x;
@@ -4193,6 +4193,7 @@
         // identity function
         xValue = function(d) { return d; },
         yValue = function(d) { return d; },
+        x_domain, y_domain,
         // default to some height - zeros is just going to be confusing
         width = 700,
         height = 400,
@@ -4224,8 +4225,15 @@
         var yAxis = axisLeft()
             .scale(y);
 
-        x.domain(extent(data, xValue));
-        y.domain([0, d3_max(data, yValue)]);
+        if (!x_domain) {
+          x_domain = extent(data, xValue);
+        }
+        if (!y_domain) {
+          y_domain = [0, d3_max(data, yValue)];
+        }
+
+        x.domain(x_domain);
+        y.domain(y_domain);
 
 
         var line$$ = line()
@@ -4306,7 +4314,7 @@
       if (!arguments.length) {
         return x_axis_title;
       }
-      margin = val;
+      x_axis_title = val;
       return line_chart;
     };
 
@@ -4314,7 +4322,23 @@
       if (!arguments.length) {
         return y_axis_title;
       }
-      margin = val;
+      y_axis_title = val;
+      return line_chart;
+    };
+
+    line_chart.xDomain = function(val) {
+      if (!arguments.length) {
+        return x_domain;
+      }
+      x_domain = val;
+      return line_chart;
+    };
+
+    line_chart.yDomain = function(val) {
+      if (!arguments.length) {
+        return y_domain;
+      }
+      y_domain = val;
       return line_chart;
     };
 

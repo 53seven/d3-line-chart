@@ -11,6 +11,7 @@ export default function constructor() {
       // identity function
       xValue = function(d) { return d; },
       yValue = function(d) { return d; },
+      x_domain, y_domain,
       // default to some height - zeros is just going to be confusing
       width = 700,
       height = 400,
@@ -42,8 +43,15 @@ export default function constructor() {
       var yAxis = d3_axis.axisLeft()
           .scale(y);
 
-      x.domain(d3_extent(data, xValue));
-      y.domain([0, d3_max(data, yValue)]);
+      if (!x_domain) {
+        x_domain = d3_extent(data, xValue);
+      }
+      if (!y_domain) {
+        y_domain = [0, d3_max(data, yValue)];
+      }
+
+      x.domain(x_domain);
+      y.domain(y_domain);
 
 
       var line = d3_shape.line()
@@ -124,7 +132,7 @@ export default function constructor() {
     if (!arguments.length) {
       return x_axis_title;
     }
-    margin = val;
+    x_axis_title = val;
     return line_chart;
   };
 
@@ -132,7 +140,23 @@ export default function constructor() {
     if (!arguments.length) {
       return y_axis_title;
     }
-    margin = val;
+    y_axis_title = val;
+    return line_chart;
+  };
+
+  line_chart.xDomain = function(val) {
+    if (!arguments.length) {
+      return x_domain;
+    }
+    x_domain = val;
+    return line_chart;
+  };
+
+  line_chart.yDomain = function(val) {
+    if (!arguments.length) {
+      return y_domain;
+    }
+    y_domain = val;
     return line_chart;
   };
 
