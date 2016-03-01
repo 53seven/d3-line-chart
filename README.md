@@ -80,6 +80,15 @@ Sets or returns the margins of the chart.
 
 `margin` is a object with the format: `{top: 0, bottom: 0, left: 0, right: 0}`.
 
+##### chart.x([x]), chart.y([y])
+
+Sets or returns the x, y scales that are used to render the chart. Defaults:
+
+```js
+x = d3_scale.scaleTime();
+y = d3_scale.scaleLinear();
+```
+
 ##### chart.xDomain([domain]), chart.yDomain([domain])
 
 Sets or returns the domains to be used for the scales of the x and y axis. If these are not specified then the domains are calculated at render time in the following way:
