@@ -922,7 +922,7 @@
     return [a, c];
   }
 
-  function sequence(start, stop, step) {
+  function range(start, stop, step) {
     start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
 
     var i = -1,
@@ -941,7 +941,7 @@
   var e2 = Math.sqrt(2);
   function ticks(start, stop, count) {
     var step = tickStep(start, stop, count);
-    return sequence(
+    return range(
       Math.ceil(start / step) * step,
       Math.floor(stop / step) * step + step / 2, // inclusive
       step
@@ -1830,13 +1830,13 @@
     return interpolateCubehelixLong;
   })(1);
 
-  function constant$1(x) {
+  function constant(x) {
     return function() {
       return x;
     };
   }
 
-  function number$2(x) {
+  function number$1(x) {
     return +x;
   }
 
@@ -1845,7 +1845,7 @@
   function deinterpolateLinear(a, b) {
     return (b -= (a = +a))
         ? function(x) { return (x - a) / b; }
-        : constant$1(b);
+        : constant(b);
   }
 
   function deinterpolateClamp(deinterpolate) {
@@ -1926,7 +1926,7 @@
     };
 
     scale.domain = function(_) {
-      return arguments.length ? (domain = map.call(_, number$2), rescale()) : domain.slice();
+      return arguments.length ? (domain = map.call(_, number$1), rescale()) : domain.slice();
     };
 
     scale.range = function(_) {
@@ -4369,7 +4369,7 @@
     return line_chart;
   }
 
-  var version = "0.3.1";
+  var version = "0.3.2";
 
   exports.version = version;
   exports.chart = constructor;
