@@ -144,6 +144,22 @@ export default function constructor() {
     return line_chart;
   };
 
+  line_chart.x = function(val) {
+    if (!arguments.length) {
+      return x;
+    }
+    x = val;
+    return line_chart;
+  };
+
+  line_chart.y = function(val) {
+    if (!arguments.length) {
+      return y;
+    }
+    y = val;
+    return line_chart;
+  };
+
   line_chart.xDomain = function(val) {
     if (!arguments.length) {
       return x_domain;
