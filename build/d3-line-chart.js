@@ -4057,7 +4057,7 @@
     return line_chart;
   }
 
-  var version = "0.3.3";
+  var version = "0.3.4";
 
   exports.version = version;
   exports.chart = constructor;
