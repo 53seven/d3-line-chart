@@ -51,7 +51,6 @@ d3_request.tsv('https://gist.githubusercontent.com/mbostock/3883245/raw/2a32b8e1
                   .width(700)
                   .height(400)
                   .margin({top: 20, right: 30, bottom: 30, left: 40})
-                  .data(data)
                   .xValue(function(d) {
                     return formatDate(d.date);
                   })
@@ -59,7 +58,8 @@ d3_request.tsv('https://gist.githubusercontent.com/mbostock/3883245/raw/2a32b8e1
                     return +d.close;
                   });
 
-  svg.call(lineChart);
+  svg.datum(data) // set the data for the element
+    .call(lineChart);
 });
 
 

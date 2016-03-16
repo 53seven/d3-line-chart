@@ -7,12 +7,10 @@ import * as d3_shape from 'd3-shape';
 
 export default function constructor() {
   // properties for the chart
-  var data = null,
-      // identity function
-      xValue = function(d) { return d; },
+  var xValue = function(d) { return d; },
       yValue = function(d) { return d; },
       x_domain, y_domain,
-      // default to some height - zeros is just going to be confusing
+      // default to some height - zeros would confuse some users
       width = 700,
       height = 400,
       // default to zero margins
@@ -29,7 +27,7 @@ export default function constructor() {
   var chartG;
 
   function line_chart(selection) {
-    selection.each(function(d, i) {
+    selection.each(function(data, i) {
 
       // figure out the charts height and width to fit with the margins
       var chartHeight = height - margin.top - margin.bottom,
@@ -79,14 +77,6 @@ export default function constructor() {
           .attr('d', line);
     });
   }
-
-  line_chart.data = function(val) {
-    if (!arguments.length) {
-      return data;
-    }
-    data = val;
-    return line_chart;
-  };
 
   line_chart.xValue = function(val) {
     if (!arguments.length) {

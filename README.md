@@ -36,7 +36,6 @@ var barChart = d3_line_chart.chart()
                   .width(700)
                   .height(400)
                   .margin({top: 20, right: 30, bottom: 30, left: 40})
-                  .data(data)
                   .xValue(function(d) {
                     return d.date;
                   })
@@ -45,7 +44,8 @@ var barChart = d3_line_chart.chart()
                   });
 
 
-svg.call(barChart);
+svg.datum(data) // NOTE: datum not data
+  .call(barChart);
 ```
 
 ## API Reference
@@ -53,10 +53,6 @@ svg.call(barChart);
 #### d3_line_chart.chart()
 
 Creates and returns a new `chart`.
-
-##### chart.data([data])
-
-Sets or returns the data to be rendered to the chart.
 
 ##### chart.xValue([xValue])
 
