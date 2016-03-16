@@ -12,8 +12,7 @@ tape('line chart is callable on a svg element', function(test) {
   var chart = bar_chart.chart();
 
   test.doesNotThrow(function() {
-    chart.data([]);
-    svg.call(chart);
+    svg.datum([]).call(chart);
   });
 
   delete global.document;
