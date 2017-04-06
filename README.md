@@ -1,6 +1,8 @@
 d3-line-chart-plugin
 ===
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/53seven/d3-line-chart.svg)](https://greenkeeper.io/)
+
 [![build status](https://travis-ci.org/53seven/d3-line-chart.svg)](https://travis-ci.org/53seven/d3-line-chart)
 
 A reimplementation of Mike's [Line Chart](https://bl.ocks.org/mbostock/3883245) with the plugin infrastructure of D3v4.
