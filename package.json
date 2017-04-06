@@ -27,20 +27,20 @@
   "devDependencies": {
     "d3-svg": "^0.2.0",
     "faucet": "0.0",
-    "jsdom": "^8.1.0",
+    "jsdom": "^9.12.0",
     "lodash": "^4.5.1",
-    "rollup": "0.25.4",
-    "rollup-plugin-commonjs": "^2.2.1",
-    "rollup-plugin-node-resolve": "^1.4.0",
+    "rollup": "0.41.6",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
     "tape": "4",
     "tape-catch": "^1.0.4",
     "uglify-js": "2"
   },
   "dependencies": {
-    "d3-array": "^0.7.1",
-    "d3-axis": "^0.3.0",
-    "d3-scale": "^0.6.1",
-    "d3-selection": "^0.7.0",
-    "d3-shape": "^0.5.1"
+    "d3-array": "^1.1.1",
+    "d3-axis": "^1.0.6",
+    "d3-scale": "^1.0.5",
+    "d3-selection": "^1.0.5",
+    "d3-shape": "^1.0.6"
   }
 }
