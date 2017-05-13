@@ -5,8 +5,8 @@ var tape = require('tape-catch'),
     bar_chart = require('../');
 
 tape('line chart is callable on a svg element', function(test) {
-  var document = jsdom.jsdom();
-  global.document = document;
+  var dom = new jsdom.JSDOM();
+  global.document = dom.window.document;
   var svg = d3_svg.create('body');
   test.ok(svg, 'svg element exists');
   var chart = bar_chart.chart();
