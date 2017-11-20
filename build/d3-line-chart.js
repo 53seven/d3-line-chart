@@ -4193,7 +4193,7 @@ function constructor() {
   return line_chart;
 }
 
-var version = "0.4.1";
+var version = "0.4.2";
 
 exports.version = version;
 exports.chart = constructor;
