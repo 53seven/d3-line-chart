@@ -52,7 +52,7 @@ export default function constructor() {
       y.range([chartHeight, 0]);
 
 
-      var line = d3_shape.line()
+      var line_path = d3_shape.line()
           .x(function(d) { return x(xValue(d)); })
           .y(function(d) { return y(yValue(d)); });
 
@@ -74,7 +74,7 @@ export default function constructor() {
       chartG.append('path')
           .datum(data)
           .attr('class', 'line')
-          .attr('d', line);
+          .attr('d', line_path);
     });
   }
 

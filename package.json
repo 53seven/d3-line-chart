@@ -16,7 +16,7 @@
     "url": "https://github.com/53seven/d3-line-chart.git"
   },
   "scripts": {
-    "build": "mkdir -p build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../index\\\"; export {version};\");' > build/bundle.js && rollup -c rollup.config.js -f umd -u d3-line-chart -n d3_line_chart -o build/d3-line-chart.js -- build/bundle.js",
+    "build": "mkdir -p build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../index\\\"; export {version};\");' > build/bundle.js && rollup -c rollup.config.js -f umd --amd.id d3-line-chart -n d3_line_chart -o build/d3-line-chart.js -- build/bundle.js",
     "minify": "uglifyjs build/d3-line-chart.js -c -m -o build/d3-line-chart.min.js",
     "archive": "rm -f build/d3-line-chart.zip && zip -j build/d3-line-chart.zip -- LICENSE README.md build/d3-line-chart.js build/d3-line-chart.min.js",
     "pretest": "npm run build",
@@ -29,7 +29,7 @@
     "faucet": "0.0",
     "jsdom": "^11.0.0",
     "lodash": "^4.5.1",
-    "rollup": "0.43.1",
+    "rollup": "0.51.8",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "tape": "4",
