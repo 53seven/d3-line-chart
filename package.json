@@ -27,7 +27,7 @@
   "devDependencies": {
     "d3-svg": "^0.2.0",
     "faucet": "0.0",
-    "jsdom": "^11.0.0",
+    "jsdom": "^15.2.1",
     "lodash": "^4.5.1",
     "rollup": "0.56.1",
     "rollup-plugin-commonjs": "^9.0.0",
